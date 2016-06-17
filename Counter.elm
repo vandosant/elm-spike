@@ -8,12 +8,20 @@ import Html.Events exposing(onClick)
 
 
 type alias Model =
-  { value : Int }
+  { value : Int
+  , max : Int
+  , min : Int
+  , clicks : Int
+  }
 
 
 init : Int -> Model
 init count =
-  { value = count }
+  { value = count
+  , max = count
+  , min = count
+  , clicks = 0
+  }
 
 
 
@@ -27,13 +35,13 @@ type Msg
 
 
 update : Msg -> Model -> Model
-update msg ({value} as model) =
+update msg ({value, clicks} as model) =
   case msg of
     Increment ->
-      { model | value = value + 1 }
+      { model | value = value + 1, max = value, clicks = clicks + 1 }
 
     Decrement ->
-      { model | value = value - 1 }
+      { model | value = value - 1, min = value, clicks = clicks + 1 }
 
 
 
